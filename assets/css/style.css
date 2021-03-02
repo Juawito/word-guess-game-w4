@@ -12,7 +12,7 @@ header {
     height: 15vh;
     color: rgb(247, 110, 95);
     font-weight: bold;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 header h1 {
@@ -40,7 +40,7 @@ header h2 {
     padding-bottom: 20px;
     font-size: 20px;
 }
-#start-button {
+button {
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -51,9 +51,41 @@ header h2 {
   width: 200px;
   height: 60px;
   border-radius: 10px;
-  background: gray;
-  color: rgb(165, 211, 230);
+  border: rgb(165, 211, 230);
+  background: rgb(180, 179, 179);
+  color: rgb(247, 110, 95);
 }
-#quiz, #r-or-w {
-    background: #fff;
+body #quiz {
+    display: flex;
+    justify-content: center;
+    
+}
+body #r-or-w {
+    display: flex;
+    justify-content: center;
+}
+.questions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 70vh; 
+    width: 90vh;
+    background: rgb(211, 209, 209);
+}
+.displayed-q {
+   font-size:35px;
+   margin: auto;
+   color: rgb(95, 170, 202);
+   font-weight: bold;
+}
+.answers {
+    width: 400px;
+    height: 100px;
+    border: rgb(165, 211, 230) 5px solid;
+    color: rgb(180, 179, 179);
+    background: rgb(247, 110, 95);
+}#r-or-w {
+    border-top: black 2px solid;
+    width: 70vh;
+    justify-content: center;
 }
