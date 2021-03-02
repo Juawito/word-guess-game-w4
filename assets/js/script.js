@@ -43,7 +43,6 @@ let highscoreList = document.createElement('div');
 highscoreList.setAttribute('id', 'highscore-list');
 let startBtn = document.querySelector('#start-button');
 let intro = document.querySelector('.instructions-container');
-var allScores = localStorage.getItem("allScores");
 
 
 let secondsLeft = 60;
@@ -160,12 +159,12 @@ function inputHighscores() {
                 timeLeft: secondsLeft
             }
             console.log(finalScore);
-            if (allScores === null) {
-                allScores = [];
-            } else {
-                allScores.push(finalScore);
-                renderHighscore();
+            var allScores = localStorage.getItem('allscores');
+            if (allScores !== null) {
+                var newScore = JSON.stringify(finalScore);
+                localStorage.setItem("allScores", newScore);
             }
+            renderHighscore();
 
         };
 
@@ -174,11 +173,10 @@ function inputHighscores() {
 
 function renderHighscore() {
     let playAgainBtn = document.createElement('button');
-    var allScores = localStorage.getItem('allScores');
-    allScores = JSON.parse('allScores')
+    var storedScores = JSON.parse('allScores')
     newUl = document.createElement('ul')
     highscoreList.appendChild(newUl);
-    for (var i = 0; i < allScores.length; i++) {
+    for (var i = 0; i < storedScores.length; i++) {
         newLi = document.createElement('li');
         newUl.appendChild(newLi);
     }
@@ -187,7 +185,8 @@ function renderHighscore() {
 
     playAgainBtn.textContent = 'Playagain';
     playAgainBtn.addEventListener('click', function () {
-       intro.style.display = 'flex';
+        bodyEl.removeChild(quizContainer);
+        intro.style.display = 'flex';
     })
     quizContainer.appendChild(playAgainBtn);
 
