@@ -20,7 +20,7 @@ header h1 {
     padding: 10px;
     
 }
-header h2 {
+#highscore-h2{
     padding: 10px;
     cursor: pointer;
 }
@@ -55,14 +55,14 @@ button {
   background: rgb(180, 179, 179);
   color: rgb(247, 110, 95);
 }
-body #quiz {
+body #quiz, body #r-or-w {
     display: flex;
     justify-content: center;
+    align-items: center;
     
 }
-body #r-or-w {
-    display: flex;
-    justify-content: center;
+#quiz {
+    flex-direction: column;
 }
 .questions {
     display: flex;
@@ -72,11 +72,8 @@ body #r-or-w {
     width: 90vh;
     background: rgb(211, 209, 209);
 }
-.displayed-q {
-   font-size:35px;
-   margin: auto;
-   color: rgb(95, 170, 202);
-   font-weight: bold;
+#answers-ul {
+    list-style: none;
 }
 .answers {
     width: 400px;
@@ -84,8 +81,53 @@ body #r-or-w {
     border: rgb(165, 211, 230) 5px solid;
     color: rgb(180, 179, 179);
     background: rgb(247, 110, 95);
-}#r-or-w {
-    border-top: black 2px solid;
-    width: 70vh;
-    justify-content: center;
 }
+#r-or-w {
+    display: flex;
+    border-top: black 2px solid;
+    font-size: 20px;
+    color: #fff;
+    width: 100vw;
+}
+.current-question, #timer {
+    color: honeydew;
+    font-size: 30px;
+
+}
+.h2-created, .p-created {
+    padding-bottom: 3rem;
+
+}
+.p-created {
+    font-size: 30px;
+    color: honeydew;
+}
+.initials-input {
+    margin: auto;
+    padding: 3rem;
+    font-size: 16px;
+}
+
+#submit-btn {
+    transform: translateY(3rem);
+}
+#highscore-list {
+    font-size: 30px;
+    color: honeydew;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 3rem;
+}
+#highscore-ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   list-style: none;
+   width: 400px;
+   background: rgb(165, 211, 230);
+   margin-bottom: 3rem;
+}
+

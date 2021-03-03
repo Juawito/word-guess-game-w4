@@ -43,14 +43,15 @@ let highscoreList = document.createElement('div');
 highscoreList.setAttribute('id', 'highscore-list');
 let startBtn = document.querySelector('#start-button');
 let intro = document.querySelector('.instructions-container');
+let highscoreH2 = document.querySelector('#highscore-h2');
 
 
 let secondsLeft = 60;
 let currentIndex = 0;
 let score = 0;
 let ul = document.createElement('ul');
+ul.setAttribute('id', 'answers-ul');
 let wrongAnswer = 10;
-let timeLeft = 0;
 
 
 //Function for timer
@@ -72,21 +73,21 @@ function quizTimer() {
 }
 //function to select a question
 function renderQuestion() {
-    // shuffle(questions);
     quizContainer.innerHTML = '';
     ul.innerHTML = '';
     let currentQuestion = questions[currentIndex].question;
     var userChoices = questions[currentIndex].answers;
-    quizContainer.textContent = currentQuestion;
+    var newP = document.createElement('p');
+    newP.setAttribute('class', 'current-question')
+    newP.textContent = currentQuestion;
+    quizContainer.appendChild(newP);
     userChoices.forEach(function (newItem) {
-        console.log('Running loop');
         var listItem = document.createElement("li");
         listItem.textContent = newItem;
         listItem.setAttribute('class', 'answers');
         ul.append(listItem);
         listItem.addEventListener("click", (compare));
     })
-    console.log(ul);
     quizContainer.append(ul);
 };
 function compare() {
@@ -95,7 +96,7 @@ function compare() {
         score++;
     }
     if (this.innerHTML !== questions[currentIndex].correctAnswer) {
-        rOrW.textContent = 'Incorrect' + questions[currentIndex].correctAnswer;
+        rOrW.textContent = 'Incorrect' + ' : ' + questions[currentIndex].correctAnswer;
         secondsLeft = secondsLeft - wrongAnswer;
     }
     currentIndex++;
@@ -108,15 +109,17 @@ function compare() {
 };
 function inputHighscores() {
     quizContainer.innerHTML = '';
-    timerEl.innerHTML = '';
-    rOrW.innerHTML = '';
+    bodyEl.removeChild(timerEl);
+    bodyEl.removeChild(rOrW);
 
     var newH2 = document.createElement('h2');
+    newH2.setAttribute('class','h2-created')
     newH2.textContent = 'Submit your Highscore';
 
     quizContainer.append(newH2);
 
     var timeLeft = document.createElement('p');
+    timeLeft.setAttribute('class', 'p-created');
     if (secondsLeft <= 0) {
         timeLeft.textContent = 'No time remaining';
         rOrW.style.display = 'none';
@@ -135,6 +138,7 @@ function inputHighscores() {
     submitButn.textContent = 'Submit';
     submitButn.setAttribute('type', "submit");
     submitButn.setAttribute('value', "Submit");
+    submitButn.setAttribute('id','submit-btn');
 
 
     quizContainer.appendChild(inputInitials);
@@ -143,21 +147,16 @@ function inputHighscores() {
     submitButn.addEventListener('click', function (event) {
         event.stopPropagation();
         quizContainer.innerHTML = '';
-        bodyEl.removeChild(timerEl);
-        bodyEl.removeChild(rOrW);
 
         var initials = inputInitials.value;
 
         if (initials === null) {
-
-            console.log("No value entered!");
 
         } else {
             var finalScore = {
                 initials: initials,
                 score: secondsLeft
             }
-            console.log(finalScore);
             var allScores = JSON.parse(localStorage.getItem('allScores')) || [];
             allScores.push(finalScore);
             localStorage.setItem('allScores', JSON.stringify(allScores));
@@ -167,11 +166,14 @@ function inputHighscores() {
 };
 
 function renderHighscore() {
+    intro.style.display = 'none';
     let playAgainBtn = document.createElement('button');
     var storedScores = JSON.parse(localStorage.getItem('allScores'));
     newUl = document.createElement('ul');
+    newUl.setAttribute('id', 'highscore-ul');
     for (var i = 0; i < storedScores.length; i++) {
         newLi = document.createElement('li');
+        newLi.setAttribute('class', 'highscore-li');
         newLi.textContent = storedScores[i].initials + ' : ' + storedScores[i].score;
         newUl.appendChild(newLi);
     }
@@ -182,16 +184,14 @@ function renderHighscore() {
     playAgainBtn.addEventListener('click', function () {
         highscoreList.innerHTML = '';
         bodyEl.removeChild(highscoreList);
-        bodyEl.removeChild(quizContainer);
-        bodyEl.removeChild(playAgainBtn);
         currentIndex = 0;
         secondsLeft = 60;
         intro.style.display = 'flex';
     });
-    bodyEl.appendChild(playAgainBtn);
+    highscoreList.appendChild(playAgainBtn);
     
 }
-
+highscoreH2.addEventListener('click', renderHighscore);
 startBtn.addEventListener('click', function (Event) {
     Event.stopPropagation
     intro.style.display = 'none'
