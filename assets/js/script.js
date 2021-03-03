@@ -142,7 +142,7 @@ function inputHighscores() {
 
     submitButn.addEventListener('click', function (event) {
         event.stopPropagation();
-        quizContainer = '';
+        quizContainer.innerHTML = '';
         bodyEl.removeChild(timerEl);
         bodyEl.removeChild(rOrW);
 
@@ -155,41 +155,41 @@ function inputHighscores() {
         } else {
             var finalScore = {
                 initials: initials,
-                score: score,
-                timeLeft: secondsLeft
+                score: secondsLeft
             }
             console.log(finalScore);
-            var allScores = localStorage.getItem('allscores');
-            if (allScores !== null) {
-                var newScore = JSON.stringify(finalScore);
-                localStorage.setItem("allScores", newScore);
-            }
+            var allScores = JSON.parse(localStorage.getItem('allScores')) || [];
+            allScores.push(finalScore);
+            localStorage.setItem('allScores', JSON.stringify(allScores));
             renderHighscore();
-
         };
-
     })
 };
 
 function renderHighscore() {
     let playAgainBtn = document.createElement('button');
-    var storedScores = JSON.parse('allScores')
-    newUl = document.createElement('ul')
-    highscoreList.appendChild(newUl);
+    var storedScores = JSON.parse(localStorage.getItem('allScores'));
+    newUl = document.createElement('ul');
     for (var i = 0; i < storedScores.length; i++) {
         newLi = document.createElement('li');
+        newLi.textContent = storedScores[i].initials + ' : ' + storedScores[i].score;
         newUl.appendChild(newLi);
     }
-
-    quizContainer.appendChild(highscoreList);
+    highscoreList.appendChild(newUl);
+    bodyEl.appendChild(highscoreList);
 
     playAgainBtn.textContent = 'Playagain';
     playAgainBtn.addEventListener('click', function () {
+        highscoreList.innerHTML = '';
+        bodyEl.removeChild(highscoreList);
         bodyEl.removeChild(quizContainer);
+        bodyEl.removeChild(playAgainBtn);
+        currentIndex = 0;
+        secondsLeft = 60;
         intro.style.display = 'flex';
-    })
-    quizContainer.appendChild(playAgainBtn);
-
+    });
+    bodyEl.appendChild(playAgainBtn);
+    
 }
 
 startBtn.addEventListener('click', function (Event) {
