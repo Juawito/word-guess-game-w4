@@ -42,7 +42,7 @@ The page uses semantic HTML elements, and vanilla Javascript.
 ## Deployed application
 
 ### Link to page
-[Code Quiz]()
+[Code Quiz](https://juawito.github.io/word-guess-game-w4/)
 
 ### Start Screen
 ![Start screen of Code Quiz Game](assets/images/quiz-home.png)
