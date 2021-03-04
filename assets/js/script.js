@@ -31,7 +31,7 @@ let questions = [
         answers: ['Programming Interface', 'Data-type', 'Methods', 'Function'],
         correctAnswer: 'Programming Interface'
     }];
-
+// Elements that are on static page as well as elements that will be dynamically appended
 let bodyEl = document.querySelector('body');
 let quizContainer = document.createElement('div');
 quizContainer.setAttribute('id', 'quiz');
@@ -45,7 +45,7 @@ let startBtn = document.querySelector('#start-button');
 let intro = document.querySelector('.instructions-container');
 let highscoreH2 = document.querySelector('#highscore-h2');
 
-
+// variable for running code
 let secondsLeft = 60;
 let currentIndex = 0;
 let score = 0;
@@ -90,6 +90,7 @@ function renderQuestion() {
     })
     quizContainer.append(ul);
 };
+//function to compare questions
 function compare() {
     if (this.innerHTML === questions[currentIndex].correctAnswer) {
         rOrW.textContent = 'correct';
@@ -107,6 +108,7 @@ function compare() {
     }
     renderQuestion();
 };
+//function to display form and clear questions from screen
 function inputHighscores() {
     quizContainer.innerHTML = '';
     bodyEl.removeChild(timerEl);
@@ -164,7 +166,7 @@ function inputHighscores() {
         };
     })
 };
-
+//function to change to all scores screen
 function renderHighscore() {
     intro.style.display = 'none';
     let playAgainBtn = document.createElement('button');
@@ -191,7 +193,9 @@ function renderHighscore() {
     highscoreList.appendChild(playAgainBtn);
     
 }
+//event listener for the word Highschore 
 highscoreH2.addEventListener('click', renderHighscore);
+//event to start the game
 startBtn.addEventListener('click', function (Event) {
     Event.stopPropagation
     intro.style.display = 'none'
